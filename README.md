@@ -68,3 +68,4 @@ Drawing or Writing -
 ![Pen](https://github.com/kushalchaudhari21/iPlanes-InteractivePlanes/blob/master/data/pen_schematic.png)
 
 * Scope of future development lies in using deeplearning algorithms to come up with a complete touchscreen interface. Thereby, eliminating the need for the LED pen. Also the perspective transform can be automatic after certain refresh rates which will provide consistency even if the webcam is disturbed slightly. 
+* You can also refer to the [Report](https://github.com/kushalchaudhari21/iPlanes-InteractivePlanes/blob/master/ProjectReport.pdf) for additional information.
