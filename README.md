@@ -47,6 +47,7 @@ Keep the camera faced to the projected surface and keep it fixed.
 **2.** Run the code as per sample invocation. Then select the four points in image that pops up in the following order to define the region of interest : top-left, top-right, bottom-left, bottom-right.
 
 **3.** Once you select the four points the image disappears and the interface is active. Sample usage:
+
 Clicking -
 
 ![Clicking](https://github.com/kushalchaudhari21/iPlanes-InteractivePlanes/blob/master/data/1.gif)
