@@ -30,7 +30,7 @@ Software Dependencies:
   sudo -H pip install pynput
   pip install opencv-contrib-python
 ```
-You can also follow through different OpenCV installation tutorials on [demo](https://www.pyimagesearch.com) to get OpenCV on your system.
+You can also follow through different OpenCV installation tutorials on [pyimagesearch](https://www.pyimagesearch.com) to get OpenCV on your system.
 
 **2.** In the terminal, in the project directory input the following to execute the script
 ```console
