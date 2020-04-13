@@ -5,11 +5,10 @@ from pynput.mouse import Button, Controller
 import time
 
 cap = cv2.VideoCapture(0)
-time.sleep(1.1)
+time.sleep(1.1)              # to let camera adjust to lighting conditions
 _,img = cap.read()
-alpha = 2
-mouse = Controller()
-gamma = 0.5
+mouse = Controller()         # intialise controller for mouse api
+gamma = 0.5                  # gamma correction
 check = False
 pts = [(0,0),(0,0),(0,0),(0,0)]
 pointIndex = 0
@@ -17,6 +16,7 @@ AR = (740,1280)
 oppts = np.float32([[0,0],[AR[1],0],[0,AR[0]],[AR[1],AR[0]]])
 a = 0
 b = 0
+# define range for lower and upper HSV bounds for the red LED
 lower = (0, 65, 200)
 upper = (90,175,255)
 
@@ -66,17 +66,14 @@ show_window()
 
 while True:
 	_, frame = cap.read()
-	warped = get_persp(frame, pts)
+        warped = get_persp(frame, pts)
 
 	blurred = cv2.GaussianBlur(warped, (9, 9), 0)
-	#hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
-	adjusted = adjust_gamma(blurred, gamma)
-   	#cv2.putText(adjusted, "g={}".format(gamma), (10, 30),cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 255), 3)
+	hsv = cv2.cvtColor(frame,cv2.COLOR_BGR2HSV)
+	adjusted = adjust_gamma(hsv, gamma)
 	hsv = cv2.cvtColor(adjusted,cv2.COLOR_BGR2HSV)
 	mask = cv2.inRange(hsv, lower, upper)
-	ret, otsu = cv2.threshold(mask,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)
-
-	#hsv = cv2.GaussianBlur(hsvv, (5, 5), 0)
+	ret, otsu = cv2.threshold(mask,0,255,cv2.THRESH_BINARY+cv2.THRESH_OTSU)  #adaptive thresholding
 
 	cnts = cv2.findContours(otsu.copy(), cv2.RETR_EXTERNAL,
 		cv2.CHAIN_APPROX_SIMPLE)[-2]
@@ -93,9 +90,9 @@ while True:
 		b = y
 		M = cv2.moments(c)
 		if M["m00"] != 0:
-			center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
-		else :
-			center = (0,0)
+                   center = (int(M["m10"] / M["m00"]), int(M["m01"] / M["m00"]))
+                else :
+                   center = (0,0)
 
 		# only proceed if the radius meets a minimum size
 		if (radius>1):
@@ -110,27 +107,27 @@ while True:
 			#pts.appendleft(center)
 
 
-	width, height = pyautogui.size()
-
+	width, height = pyautogui.size() # to get screen size of a computer 
+        # projector surface co-ordinates precentage calculation.
 	m = (a/1280)*100
 	n = (b/740)*100 
-
+        # using calculated percentages to get location of mouse pointer on laptop screen
 	k = (width*m)/100
 	c = (height*n)/100
 
 	#pyautogui.FAILSAFE = False
 	#pyautogui.moveTo(k,c)
-	
+	# using if and else statenents to simulate a click.
 	if check == True :
 		#print('h')
-		#mouse.position = (int(k), int(c))
+		mouse.position = (int(k), int(c))
 		mouse.press(Button.left)
-		mouse.release(Button.left)
+		#mouse.release(Button.left)
         
 	else:
            mouse.release(Button.left)
 
-	check = False   
+        check = False   
 
 	cv2.imshow('frame',frame)
 	cv2.imshow('dilate',otsu)
