@@ -5,6 +5,8 @@ The use case for this project is the classic projected screens on a wall using a
 
 ![Output](https://github.com/kushalchaudhari21/iPlanes-InteractivePlanes/blob/master/data/result.png)
 
+The **video** on the working of this system can be found [here](https://www.linkedin.com/feed/update/activity:6468389723479080960/).
+
 Hardware dependencies :
 
 - Webcam (internal laptop webcam or usb webcam).
